@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Bharat Foundation</title>
+    <style>
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- VARIABLES --- */
+        :root {
+            --primary-color: #da291c; /* Official Red */
+            --primary-dark: #b01f15;
+            --secondary-color: #2e2e2e;
+            --light-color: #ffffff;
+            --bg-gray: #f4f4f4;
+        }
+
+        /* --- FIXED (STICKY) HEADER --- */
+        header {
+            position: fixed; /* This makes it stay at the top while scrolling */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background 0.3s ease;
+            /* Semi-transparent dark background for readability on all sections */
+            background: rgba(0, 0, 0, 0.7); 
+            backdrop-filter: blur(10px); /* Glass effect */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #da291c; /* Red accent for the second word */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: white; 
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #da291c;
+        }
+
+        /* DONATION BUTTON STYLE */
+        .btn-donate {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.3s;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+        }
+
+        .btn-donate:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
+            border-color: var(--primary-dark);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            /* Added padding-top so content doesn't hide behind fixed header */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Full screen height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--light-color);
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            max-width: 900px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* --- STATS SECTION --- */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 40px 5%;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-box {
+            text-align: center;
+            margin: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* --- GENERAL SECTION STYLES --- */
+        .section-container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .section-title .line {
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 0 auto;
+        }
+
+        /* --- LEADERSHIP / PRESIDENT SECTION --- */
+        .president-section {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 900px;
+            margin: 60px auto;
+        }
+
+        .president-img-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+
+        .president-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .president-info {
+            padding: 40px;
+        }
+
+        .president-info h3 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .president-role {
+            color: var(--primary-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .president-quote {
+            font-style: italic;
+            color: #555;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* --- CARDS GRID --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .btn-link {
+            color: var(--primary-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        /* --- GALLERY SECTION --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- MAP SECTION --- */
+        .map-container {
+            width: 100%;
+            height: 450px;
+            background-color: #eee;
+            margin-top: 40px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #1a1a1a;
+            color: #bbb;
+            padding: 60px 5% 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (min-width: 768px) {
+            .president-section {
+                flex-direction: row;
+                text-align: left;
+            }
+            .president-img-container {
+                width: 45%;
+                height: 450px;
+            }
+            .president-info {
+                width: 55%;
+                padding: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 2.2rem; }
+            .stats { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">Balance <span>Bharat</span></div>
+            <ul class="nav-links">
+                <li><a href="#leadership">Leadership</a></li>
+                <li><a href="#work">Our Work</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="upi://pay?pa=gauravchand191@ybl&pn=Balance%20Bharat%20Foundation&cu=INR" class="btn-donate">Donate Now</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Transforming Lives, Building Futures</h1>
+        <p>Join the movement to create a balanced, equitable India where every child has the right to survival, protection, development, and participation.</p>
+        <br>
+        <a href="upi://pay?pa=gauravchand191@ybl&pn=Balance%20Bharat%20Foundation&cu=INR" class="btn-donate" style="padding: 15px 40px; font-size: 1.2rem; background: transparent; border: 2px solid white;">Support Our Cause</a>
+    </section>
+
+    <section class="stats">
+        <div class="stat-box">
+            <div class="stat-number">10M+</div>
+            <p>Children Supported</p>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">18</div>
+            <p>States Active</p>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">200k+</div>
+            <p>Donors</p>
+        </div>
+    </section>
+
+    <section id="leadership" class="section-container">
+        <div class="section-title">
+            <h2>Our Leadership</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="president-section">
+            <div class="president-img-container">
+                <img src="2445.png" alt="Narayan Chand, President">
+            </div>
+            <div class="president-info">
+                <h3>Narayan Chand</h3>
+                <span class="president-role">President & Representative</span>
+                <p>Leading the Balance Bharat Foundation with a vision to eradicate inequality. Narayan is dedicated to empowering the youth and ensuring that every child in India has access to the resources they need to thrive.</p>
+                <p class="president-quote">"We are not just an NGO; we are a movement for a balanced nation."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="section-container">
+        <div class="section-title">
+            <h2>Our Focus Areas</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="card-content">
+                    <h3>Education</h3>
+                    <p>Sending children back to school and providing learning materials to the most remote villages.</p>
+                    <a href="#" class="btn-link">Learn More &rarr;</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="card-content">
+                    <h3>Healthcare</h3>
+                    <p>Fighting malnutrition and providing vaccinations to newborns and mothers in need.</p>
+                    <a href="#" class="btn-link">Learn More &rarr;</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="card-content">
+                    <h3>Disaster Relief</h3>
+                    <p>Immediate response teams for floods, cyclones, and other natural calamities across India.</p>
+                    <a href="#" class="btn-link">Learn More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section-container">
+        <div class="section-title">
+            <h2>Gallery</h2>
+            <div class="line"></div>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Child Smiling"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1532375810709-75b1da00537c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Village School"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food Distribution"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512712984502-0e549174094a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Indian Kids"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-container">
+        <div class="section-title">
+            <h2>Find Us</h2>
+            <div class="line"></div>
+        </div>
+        <p style="text-align: center; margin-bottom: 20px;">Visit our headquarters or contact our regional offices.</p>
+        
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.83923192776!2d77.0688975472578!3d28.52728034389636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x52c2b7494e204dce!2sNew%20Delhi%2C%20Delhi%2C%20India!5e0!3m2!1sen!2sin!4v1652345678901!5m2!1sen!2sin" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 15px;">Balance <span>Bharat</span></div>
+                <p>Empowering communities and children to create a sustainable and equitable future.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#leadership">Leadership</a></li>
+                    <li><a href="#media">Media Centre</a></li>
+                    <li><a href="#reports">Annual Reports</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>Email: info@balancebharat.org</li>
+                    <li>Phone: +91 11 4000 5000</li>
+                    <li>Address: New Delhi, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Balance Bharat Foundation. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Alert for desktop users about UPI
+        const donateButtons = document.querySelectorAll('.btn-donate');
+        
+        donateButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (!isMobile) {
+                    alert("To donate, please scan the UPI ID using your phone: gauravchand191@ybl");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
